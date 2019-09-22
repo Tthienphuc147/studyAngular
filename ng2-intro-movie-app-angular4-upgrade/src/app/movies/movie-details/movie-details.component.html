@@ -1,0 +1,34 @@
+<div class="row movie--detail" [ngClass]="{ 'selected': !!markedToSee }">
+  <div class="col-md-8" [ngClass]="{ 'pull-left': isEven, 'pull-right': !isEven }">
+    <div class="row">
+      <div class="col-md-10">
+        <h1>{{ movie.title }}</h1>
+      </div>
+
+      <div class="col-md-2 movie--detail--favorite">
+        <a href (click)="$event.preventDefault();toggleAsFavorite.emit()">
+          <i class="pointer push-slightly-down fa fa-lrg pull-right" [ngClass]="isFavorited ? 'fa-star' : 'fa-star-o'"></i>
+        </a>
+      </div>
+    </div>
+
+    <hr />
+
+    <div class="row add-smaller-space-below">
+      <div class="col-md-12"><i class="fa fa-lrg fa-calendar"></i> {{ movie.release_date }}</div>
+    </div>
+    <div class="row add-smaller-space-below">
+      <div class="col-md-2"><i class="fa fa-lrg" [ngClass]="{ 'fa-thumbs-up green': movie.vote_average >= 5, 'fa-thumbs-down red': movie.vote_average < 5 }"></i> {{ movie.vote_average }}</div>
+      <div class="col-md-4 green" *ngIf="markedToSee"><i class="fa fa-check"></i> See this movie!</div>
+    </div>
+    <div class="row add-space-below">
+      <div class="col-md-12">{{ movie.genre_ids | genreList: genres }}</div>
+    </div>
+
+    <p>{{ movie.overview }}</p>
+  </div>
+
+  <div class="col-md-4" [ngClass]="{ 'pull-left no-padding-left': !isEven, 'pull-right no-padding-right': isEven }">
+    <img width="100%" [src]="getImageUrl(movie.poster_path)" />
+  </div>
+</div>
